@@ -1,7 +1,7 @@
 import copy
 import hashlib
 import string
-from random import randint, choice
+from random import choice, randint
 
 from PIL import Image, ImageDraw
 

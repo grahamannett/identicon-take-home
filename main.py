@@ -1,4 +1,5 @@
 import argparse
+
 from akkio_take_home.identicon import IdenticonGenerator, IdenticonImageWriter
 
 

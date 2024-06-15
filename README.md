@@ -5,6 +5,8 @@ Graham Annett
 
 Note: throughout this readme, I use matrix and grid interchangeably.
 
+![color image](./assets/color.png) ![bw image](./assets/bw.png)
+
 # Setup
 The project was initialized with pdm so it is more files than necessary but I find that its better to just always use something like pdm to start a project rather than attempting to migrate as it can be a pain.
 
@@ -55,7 +57,13 @@ It is possible to run the tests with `python -m unittest` from the root director
 ## Legibility
 
 In terms of legibility, making it large enough is an easy way to make it legible, I do this by just dictating the image size as larger than the grid (which theoretically would allow for 16x16 identicon). I am not sure if there is a way to make the patterns more *cool* while still being unique/legible, I am guessing if I spent more time on it I could think of a way the blocks/colors repeat in a way that still maintains uniqueness. It does seem possible as quick search shows examples like [this](https://github.com/laurentpayot/minidenticons) but I have not looked at what they do to make the images have more structure while still being unique.
-Overall I just allowed it to be symmetric which seems to help with legibility while ensuring the grid has enough entropy that it will allow characters from uppercase/lowercase/digits to be used (as well as spaces, and probably it has enough entropy to allow for punctuation and other non ascii characters).
+Originally copilot generated code for me that output identicons that were more similar to the following (which I like in some ways as seems more "calm" and structured):
+
+![from copilot](./assets/copilot.png)
+
+but looking at the image and the way it was generated, it did not seem like it would maintain uniqueness given the hash/grid size, so I went about doing it a bit different and used none of that actual code, but bits of ideas from it.
+
+Overall, I implemented it to be symmetric and use a gradient which seems to help with legibility while ensuring the grid has enough entropy that it will allow strings to generate unique images.
 
 ## Uniqueness
 Uniqueness from similar strings seems important.  For example "John" vs "Jon" vs "John " should be different, the idea of having them similar is problematic from an identity perspective.
@@ -65,7 +73,7 @@ Im also curious if it is possible even to make them similar while still maintain
 ## Appearance
 
 Generating images that look bad seems subjective but I allowed a few options to be passed in that can alter the appearance such that they can be compared at least to see if one looks better than the other.
-Allowing multiple colors is the main way to alter the appearance, and these colors can be a random number of colors or can use a gradient between 2 colors.  If you do not want colors, the image can be generated via just a matrix with binary values as well and would be black and white.  The gradient version does seem the best looking to me but if the colors are too close to one another, I supposed that could be problematic (e.g. black + blue or yellow + white), perhaps the colors should be complimentary or similar but I did not have the time to look into that too deeply.
+Allowing multiple colors is the main way to alter the appearance, and these colors can be a random number of colors or can use a gradient between 2 colors.  If you do not want colors, the image can be generated via just a matrix with binary values as well and would be black and white. The gradient version does seem the best looking to me but if the colors are too close to one another, I supposed that could be problematic (e.g. black + blue or yellow + white), perhaps the colors should be complimentary or similar but I did not have the time to look into that too deeply.
 Along with the coloring, I allowed the image to be symmetric by default but can be turned off if desired.
 Seems like the appearance would be nicer if it was less "chaotic" and more "structured" but not sure if I can think of a way off hand to do that (similar to the github repo linked above) while still maintaining uniqueness.
 
