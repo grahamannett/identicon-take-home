@@ -3,8 +3,10 @@
 Graham Annett
 6/14/24
 
+Note: throughout this readme, I use matrix and grid interchangeably.
+
 # Setup
-The project was initialized with pdm so it is possibly more boilerplate than necessary but I find that it's better to just always use something like pdm to start a project rather than attempting to migrate as it can be a pain.
+The project was initialized with pdm so it is more files than necessary but I find that its better to just always use something like pdm to start a project rather than attempting to migrate as it can be a pain.
 
 To setup, you can use `pip install -r requirements && pip install -e .` or `pdm install && pdm sync` should also work. I believe the only external dependencies is `PIL`.
 
@@ -12,7 +14,7 @@ To make the zip file I used `zip -r graham_annett.zip src/ tests/ .gitignore mai
 
 # Usage
 
-The code has 2 main classes.  The `IdenticonGenerator` and the `IdenticonImageWriter` class.
+The code has 2 main classes both in `identicon.py`.  The `IdenticonGenerator` and the `IdenticonImageWriter` class.
 It is possible to do everything just by instantiating and calling the `IdenticonImageWriter` with something like the following:
 
 ```python
@@ -26,14 +28,24 @@ grid = grid_generator("Name Grid", return_colored=False)
 black_white_image = image_writer.generate_image(grid)
 ```
 
-The classes are structured such that the actual grid and generation of the uniqueness is all done with `IdenticonGenerator`, as I believed I could dictate more about the grid size/dimensions at first (I mention this later in the readme).  Mostly that class is responsible for going from the string->hash->grid.
+or have included a `main.py` file that can be run with `python main.py` with the following:
+
+```bash
+NAME_HERE="Akkio NAME"
+OUTFILE="out/akkio.png"
+python main.py $NAME_HERE --output=$OUTFILE --image-size=255 --num-colors=8 --base-color-idx=2 --end-color-idx=6
+```
+
+# Implementation
+
+The classes are structured such that the actual grid and generation of the uniqueness is all done with `IdenticonGenerator`, as I had hoped I could dictate more about the grid size/dimensions at first (I mention this later in the readme).  Mostly that class is responsible for going from the string->hash->grid.
 I wanted to use a matrix/grid as originally starting on this it seemed easy enough and I would have extra time so planned to have it serve the array via webpage and then draw the image in canvas like the info mentioned which would allow no dependencies and result in me learning how to draw via canvas which seems useful. Probably could do that in another 30-60 minutes but wanted to finish this so just did the image generation with PIL. For the code I am submitting, the image could be created in PIL directly without needing this extra grid/matrix I do, but I think this way is more extendable so I just kept this how it is.
 
-The `IdenticonImageWriter` class handles the png generation, there is not much to it besides using the image_size specified and then calculating the size of the blocks given the grid size.  This calculation is not really relevant since the grid is fixed size, but if I were to make the grid size variable then I believe this will work as is.
+The `IdenticonImageWriter` class handles the png generation, there is not much to it besides using the `image_size` specified and then calculating the size of the blocks for the drawing.  This calculation is not really relevant since the grid is fixed size, but if I were to make the grid size variable then I believe this will work as is.
 
 
 # Testing
-There are a few simple tests in the `test_image_generator.py` file.
+There are a few simple tests in the `test_identicon.py` file.
 It is not very robust and I do not check inputs or various params, just basic tests to get things working.  It is also a single TestClass, perhaps it would make more sense to split into a class per class implementation but the tests are simple enough that it is not really necessary.
 It is possible to run the tests with `python -m unittest` from the root directory.
 

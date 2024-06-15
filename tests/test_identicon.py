@@ -1,7 +1,7 @@
 import itertools
 import unittest
 
-from akkio_take_home.generate import (
+from akkio_take_home.identicon import (
     IdenticonGenerator,
     IdenticonImageWriter,
     _get_palette,

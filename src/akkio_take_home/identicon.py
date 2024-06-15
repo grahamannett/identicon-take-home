@@ -83,6 +83,9 @@ class IdenticonGenerator:
     def __init__(
         self,
         num_colors: int = 4,
+        use_gradient: bool = True,
+        base_color_idx: int = None,
+        end_color_idx: int = None,
     ):
         """
         Initialize a Generate object.
@@ -95,8 +98,14 @@ class IdenticonGenerator:
         self.grid_size = 16
         self._bin_digest_format = "04b"  # maybe better name/format for this?
         self.num_colors = num_colors
+        self.use_gradient = use_gradient
 
-        self.base_color, self.palette = _get_palette(self.num_colors)
+        self.base_color, self.palette = _get_palette(
+            self.num_colors,
+            base_color_idx=base_color_idx,
+            end_color_idx=end_color_idx,
+            use_gradient=self.use_gradient,
+        )
 
         self._params_check()
 
@@ -235,12 +244,13 @@ class IdenticonImageWriter:
         grid_generator = IdenticonGenerator(**kwargs)
         grid = grid_generator(string)
 
-        image = self.generate_image(grid)
-        if output_file:
-            image.save(output_file)
+        image = self.generate_image(grid, output_file=output_file)
+
         return image
 
-    def generate_image(self, grid: ColorGridType | GridType) -> Image.Image:
+    def generate_image(
+        self, grid: ColorGridType | GridType, output_file: str = None
+    ) -> Image.Image:
         """
         Generates an image based on the provided grid.
 
@@ -254,8 +264,10 @@ class IdenticonImageWriter:
         image = Image.new("RGB", (self.image_size, self.image_size), "white")
         draw = ImageDraw.Draw(image)
 
-        block_width = self.image_size // len(grid[0])
-        block_height = self.image_size // len(grid)
+        block_width = self.image_size / len(grid[0])
+        block_height = self.image_size / len(grid)
+
+        # breakpoint()
 
         def _get_color(c):
             if isinstance(c, tuple):
@@ -275,5 +287,8 @@ class IdenticonImageWriter:
             left_half = image.crop((0, 0, self.block_size, self.image_size))
             right_half = left_half.transpose(Image.FLIP_LEFT_RIGHT)
             image.paste(right_half, (self.block_size, 0))
+
+        if output_file:
+            image.save(output_file)
 
         return image
