@@ -54,7 +54,7 @@ It is possible to run the tests with `python -m unittest` from the root director
 
 ## Legibility
 
-In terms of legibility, making it large enough is an easy way to make it legible, I do this by just dictating the image size as larger than the grid (which theoretically would allow for 16x16 identicon). I am not sure if there is a way to make the patterns more *cool* while still being unique/legible, I am guessing if I spent more time on it I could think of a way the blocks/colors repeat in a way that still maintains uniqueness. It does seem possible as quick search shows stuff like [this](https://github.com/laurentpayot/minidenticons) but I have not looked at what they do to make the images have more structure while still being unique.
+In terms of legibility, making it large enough is an easy way to make it legible, I do this by just dictating the image size as larger than the grid (which theoretically would allow for 16x16 identicon). I am not sure if there is a way to make the patterns more *cool* while still being unique/legible, I am guessing if I spent more time on it I could think of a way the blocks/colors repeat in a way that still maintains uniqueness. It does seem possible as quick search shows examples like [this](https://github.com/laurentpayot/minidenticons) but I have not looked at what they do to make the images have more structure while still being unique.
 Overall I just allowed it to be symmetric which seems to help with legibility while ensuring the grid has enough entropy that it will allow characters from uppercase/lowercase/digits to be used (as well as spaces, and probably it has enough entropy to allow for punctuation and other non ascii characters).
 
 ## Uniqueness

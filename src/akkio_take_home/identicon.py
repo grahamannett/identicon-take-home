@@ -31,7 +31,7 @@ def _get_palette(
     base_color_idx: int = None,
     end_color_idx: int = None,  # only important for gradient
     use_gradient: bool = True,
-):
+) -> tuple[ColorType, list[ColorType]]:
     """
     Get a palette of colors with an optional gradient between start and end colors.
 
@@ -137,6 +137,7 @@ class IdenticonGenerator:
         Raises:
             ValueError: If the grid entropy is less than the string entropy.
         """
+        # i dont think this check actually matters anymore since i moved away from the variable sized grid
         grid_entropy = 2 ** (self.grid_size * self.grid_size)
         string_entropy = len(CHARACTERS_ALLOWED) ** STRING_MAX_LENGTH
 
@@ -266,8 +267,6 @@ class IdenticonImageWriter:
 
         block_width = self.image_size / len(grid[0])
         block_height = self.image_size / len(grid)
-
-        # breakpoint()
 
         def _get_color(c):
             if isinstance(c, tuple):
