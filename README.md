@@ -1,4 +1,4 @@
-# akkio-take-home Project
+# identicon-take-home Project
 
 Graham Annett
 6/14/24
@@ -33,8 +33,8 @@ black_white_image = image_writer.generate_image(grid)
 or have included a `main.py` file that can be run with `python main.py` with the following:
 
 ```bash
-NAME_HERE="Akkio NAME"
-OUTFILE="out/akkio.png"
+NAME_HERE="EXAMPLE NAME"
+OUTFILE="out/example-name.png"
 python main.py $NAME_HERE --output=$OUTFILE --image-size=255 --num-colors=8 --base-color-idx=2 --end-color-idx=6
 ```
 

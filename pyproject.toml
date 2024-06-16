@@ -1,7 +1,7 @@
 [project]
     name = "akkio-take-home"
     version = "0.0"
-    description = "akkio take home"
+    description = "identicon take home"
     authors = [{ name = "graham", email = "graham.annett@gmail.com" }]
     dependencies = ["pillow>=10.3.0"]
     requires-python = ">=3.11"
